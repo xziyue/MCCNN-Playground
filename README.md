@@ -77,23 +77,23 @@ Visualizations/results are shown in Jupyter Notebooks in the `notebook` folder.
 
 ### Model architecture
 
-    ```python
-    dropoutRate=0.3
-    model = models.Sequential()
-    model.add(layers.Conv3D(20, (2, 2, 2), data_format='channels_last', input_shape=newXs.shape[1:], activity_regularizer=regularizers.l2(regRate)))
-    model.add(layers.Dropout(dropoutRate))
-    model.add(layers.Activation('relu'))
-    model.add(layers.Conv3D(32, (2, 2, 2), data_format='channels_last', activity_regularizer=regularizers.l2(regRate)))
-    model.add(layers.Dropout(dropoutRate))
-    model.add(layers.Activation('relu'))
-    model.add(layers.Conv3D(64, (3, 3, 3), data_format='channels_last', activity_regularizer=regularizers.l2(regRate)))
-    model.add(layers.Dropout(dropoutRate))
-    model.add(layers.Activation('relu'))
-    model.add(layers.MaxPooling3D())
-    model.add(layers.Flatten())
-    model.add(layers.Dropout(dropoutRate))
-    model.add(layers.Dense(2, activation='softmax'))
-    ```
+```python
+dropoutRate=0.3
+model = models.Sequential()
+model.add(layers.Conv3D(20, (2, 2, 2), data_format='channels_last', input_shape=newXs.shape[1:], activity_regularizer=regularizers.l2(regRate)))
+model.add(layers.Dropout(dropoutRate))
+model.add(layers.Activation('relu'))
+model.add(layers.Conv3D(32, (2, 2, 2), data_format='channels_last', activity_regularizer=regularizers.l2(regRate)))
+model.add(layers.Dropout(dropoutRate))
+model.add(layers.Activation('relu'))
+model.add(layers.Conv3D(64, (3, 3, 3), data_format='channels_last', activity_regularizer=regularizers.l2(regRate)))
+model.add(layers.Dropout(dropoutRate))
+model.add(layers.Activation('relu'))
+model.add(layers.MaxPooling3D())
+model.add(layers.Flatten())
+model.add(layers.Dropout(dropoutRate))
+model.add(layers.Dense(2, activation='softmax'))
+```
 
 ### Model evaluation with k-fold cross validation
 
