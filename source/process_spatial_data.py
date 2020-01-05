@@ -90,8 +90,8 @@ def run_autogrid4(targetFilename, outputPath):
     for name in uselessFiles:
         os.remove(os.path.join(autogridPath, name))
 
-
-# extract all features from the dataset
-targets = recursive_search_target(os.path.join(rootDir, 'data', 'spatial_features'))
-for target in targets:
-    run_autogrid4(target, os.path.join(rootDir, 'data', 'grid_data'))
+if __name__ == '__main__':
+    # extract all features from the dataset
+    targets = recursive_search_target(os.path.join(rootDir, 'data', 'spatial_features'))
+    for target in targets:
+        run_autogrid4(target, os.path.join(rootDir, 'data', 'grid_data'))

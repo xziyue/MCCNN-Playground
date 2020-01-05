@@ -60,5 +60,5 @@ def constructed_merged_dataset():
     with open(os.path.join(rootDir, 'data', 'train_merged.pickle'), 'wb') as outFile:
         pickle.dump((xs, ys, ids), outFile)
 
-
-constructed_merged_dataset()
+if __name__ == '__main__':
+    constructed_merged_dataset()

@@ -30,7 +30,7 @@ newXs = dataStandardizer.transform(xs)
 onehot = OneHotEncoder()
 newYs = np.asarray(onehot.fit_transform(ys.reshape(-1, 1)).todense())
 
-dropoutRate = 0.35
+dropoutRate = 0.3
 regRate = 0.0
 
 def get_model():
@@ -51,10 +51,11 @@ def get_model():
 
     model.summary()
 
-    model.compile(loss='categorical_crossentropy', optimizer=keras.optimizers.Adam(lr=3.0e-5),
+    model.compile(loss='categorical_crossentropy', optimizer=keras.optimizers.Adam(lr=8.0e-4),
                   metrics=[auc_roc])
 
     return model
+
 
 
 def train_kfold():
@@ -86,8 +87,15 @@ def train_kfold():
         pickle.dump(histories, outFile)
 
 
+def get_final_model_dataset(splitIds = False):
+    if not splitIds:
+        splits = train_test_split(newXs, weightArray, newYs, test_size=0.3, random_state=0x12345678, stratify=ys)
+    else:
+        splits = train_test_split(newXs, weightArray, newYs, ids, test_size=0.3, random_state=0x12345678, stratify=ys)
+    return splits
+
 def train_final_model():
-    x_train, x_test, x_train_weights, _, y_train, y_test = train_test_split(newXs, weightArray, newYs, test_size=0.3, random_state=0x12345678, stratify=ys)
+    x_train, x_test, x_train_weights, _, y_train, y_test = get_final_model_dataset()
     aucCallback = PreciseAUC(x_train, y_train, x_test, y_test)
     model = get_model()
     history = model.fit(x_train, y_train, batch_size=20, epochs=300,
@@ -105,4 +113,6 @@ def train_final_model():
     with open(os.path.join(rootDir, 'data', 'final_model_history.pickle'), 'wb') as outFile:
         pickle.dump(historyDict, outFile)
 
-train_final_model()
+
+if __name__ == '__main__':
+    train_final_model()
